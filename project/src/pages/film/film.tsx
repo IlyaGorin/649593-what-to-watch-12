@@ -5,13 +5,9 @@ import FilmDetails from '../../components/film-details/film-details';
 import FilmOverview from '../../components/film-overview/film-overview';
 import FilmReviews from '../../components/film-reviews/film-reviews';
 import FilmsList from '../../components/films-list/films-list';
-import { FilmData } from '../../types/film';
 
-type FilmsProps = {
-  filmsData: FilmData[];
-}
 
-function Film({ filmsData }:FilmsProps):JSX.Element {
+function Film():JSX.Element {
   return (
     <>
       <section className="film-card film-card--full">
@@ -92,7 +88,7 @@ function Film({ filmsData }:FilmsProps):JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmsList filmsData={filmsData} />
+          <FilmsList />
         </section>
 
         <footer className="page-footer">

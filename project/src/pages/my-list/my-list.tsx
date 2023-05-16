@@ -1,11 +1,6 @@
-import { FilmData } from '../../types/film';
 import FilmsList from '../../components/films-list/films-list';
 
-type MyListProps = {
-  filmsData: FilmData[];
-}
-
-function MyList({ filmsData }: MyListProps):JSX.Element {
+function MyList():JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -33,7 +28,7 @@ function MyList({ filmsData }: MyListProps):JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <FilmsList filmsData={filmsData} />
+        <FilmsList />
       </section>
 
       <footer className="page-footer">

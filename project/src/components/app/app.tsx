@@ -20,17 +20,17 @@ function App({ promoFilmData, filmsData }:AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Root} element={<Main promoFilmData={promoFilmData} filmsData={filmsData}/>} />
+        <Route path={AppRoute.Root} element={<Main promoFilmData={promoFilmData} />} />
         <Route path={AppRoute.Login} element={<Login />} />
         <Route
           path={AppRoute.MyList}
           element={
             <PrivateRoute authorizationStatus>
-              <MyList filmsData={filmsData}/>
+              <MyList />
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Film} element={<Film filmsData={filmsData}/>} />
+        <Route path={AppRoute.Film} element={<Film />} />
         <Route
           path={AppRoute.Review}
           element={
