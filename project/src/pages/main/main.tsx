@@ -1,6 +1,9 @@
 import { PromoFilmData } from '../../types/promo-film';
 import FilmsList from '../../components/films-list/films-list';
 import GenresList from '../../components/genres-list/genres-list';
+import { useAppSelector } from '../../hooks';
+import { getLoadingStatus } from '../../store/films-data/films-data.selectors';
+import Spinner from '../../components/spinner/spinner';
 
 type MainProps = {
   promoFilmData: PromoFilmData;
@@ -8,6 +11,8 @@ type MainProps = {
 
 function Main({ promoFilmData }:MainProps):JSX.Element {
   const { filmName, genre, released, backgroundImage, posterImage } = promoFilmData;
+
+  const filmsDataLoadingStaus = useAppSelector(getLoadingStatus);
 
   return (
     <>
@@ -77,7 +82,10 @@ function Main({ promoFilmData }:MainProps):JSX.Element {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <GenresList />
-          <FilmsList />
+
+          {
+            filmsDataLoadingStaus ? <Spinner /> : <FilmsList />
+          }
 
         </section>
 
