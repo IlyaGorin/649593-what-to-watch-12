@@ -9,7 +9,6 @@ import FilmCard from '../film-card/film-card';
 const SHOW_FILMS_COUNT = 8;
 
 function FilmsList(): JSX.Element {
-  const [cardId, setCardId] = useState<number | null>(null);
   const [visibleFilmsCount, setVisibleFilmsCount] = useState(SHOW_FILMS_COUNT);
   const { genre, films } = useAppSelector((state) => ({
     genre: getGenre(state),
@@ -26,15 +25,12 @@ function FilmsList(): JSX.Element {
     setVisibleFilmsCount((prevCount) => prevCount + SHOW_FILMS_COUNT);
   };
 
-  const handleFilmCardMouseEnter = (id: number) => {
-    setCardId(id);
-  };
 
   return (
     <>
       <div className="catalog__films-list">
         {filmsForRender.map((film) => (
-          <FilmCard filmData={film} key={film.id} onMouseEnter={() => handleFilmCardMouseEnter(film.id)} />
+          <FilmCard filmData={film} key={film.id} />
         ))}
       </div>
       {visibleFilmsCount < filteredFilms.length && <ShowMoreButton onClick={handleShowMoreClick} />}

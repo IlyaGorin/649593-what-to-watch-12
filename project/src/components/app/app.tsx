@@ -25,7 +25,7 @@ function App({ promoFilmData, filmsData }:AppProps): JSX.Element {
         <Route
           path={AppRoute.MyList}
           element={
-            <PrivateRoute authorizationStatus>
+            <PrivateRoute>
               <MyList />
             </PrivateRoute>
           }
@@ -34,7 +34,7 @@ function App({ promoFilmData, filmsData }:AppProps): JSX.Element {
         <Route
           path={AppRoute.Review}
           element={
-            <PrivateRoute authorizationStatus>
+            <PrivateRoute>
               <Review />
             </PrivateRoute>
           }

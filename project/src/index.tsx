@@ -2,9 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
+import { ToastContainer } from 'react-toastify';
 import { films } from './mocks/films';
 import { store } from './store';
-import { fetchFilmsAction } from './store/api-actions';
+import { checkAuthAction, fetchFilmsAction } from './store/api-actions';
+import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -19,11 +21,13 @@ const promoFilmData = {
 };
 
 store.dispatch(fetchFilmsAction());
+store.dispatch(checkAuthAction());
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ToastContainer />
       <App promoFilmData={promoFilmData} filmsData={films}/>
-    </Provider>
+    </Provider>,
   </React.StrictMode>,
 );
