@@ -1,18 +1,20 @@
 import { useRef, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { FilmData } from '../../types/film';
 import VideoPlayer from '../video-player/video-player';
 
 type FilmCardProps = {
   filmData: FilmData;
-  onMouseEnter?: (id: number) => void;
 }
 
-function FilmCard({ filmData, onMouseEnter }: FilmCardProps): JSX.Element {
+const VIDEO_PLAYING_DELAY = 1000;
+
+function FilmCard({ filmData }: FilmCardProps): JSX.Element {
   const [isPlaying, setIsPlaying] = useState(false);
   const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
   const { previewImage, name, id } = filmData;
+  const filmRoute = generatePath(AppRoute.Film, { id: `${id}` });
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
@@ -31,9 +33,8 @@ function FilmCard({ filmData, onMouseEnter }: FilmCardProps): JSX.Element {
     }
     const newTimerId = setTimeout(() => {
       setIsPlaying(true);
-    }, 1000);
+    }, VIDEO_PLAYING_DELAY);
     setTimerId(newTimerId);
-    onMouseEnter?.(id);
   };
 
   const handleMouseLeave = () => {
@@ -43,6 +44,7 @@ function FilmCard({ filmData, onMouseEnter }: FilmCardProps): JSX.Element {
     }
     setIsPlaying(false);
   };
+
 
   return (
     <article
@@ -58,7 +60,7 @@ function FilmCard({ filmData, onMouseEnter }: FilmCardProps): JSX.Element {
         </div>
       )}
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={AppRoute.Film.replace(':id', id.toString())}>{name}</Link>
+        <Link className="small-film-card__link" to={filmRoute}>{name}</Link>
       </h3>
     </article>
   );

@@ -1,5 +1,8 @@
 import{ useState } from 'react';
 import StarRating from '../star-rating/star-rating';
+import { getFilmId } from '../../store/app-data/app-data.selectors';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { postCommentAction } from '../../store/api-actions';
 
 const START_RATING_VALUE = 10;
 
@@ -24,8 +27,31 @@ function PostCommentForm():JSX.Element {
     });
   };
 
+  const rating = Number(formData.rating);
+
+  const comment = {
+    rating,
+    comment: formData.reviewText,
+  };
+
+  const id = useAppSelector(getFilmId);
+  const dispatch = useAppDispatch();
+
   return (
-    <form action="#" className="add-review__form">
+    <form action="#" className="add-review__form" method="post"
+      onSubmit={(evt) => {
+        evt.preventDefault();
+
+        if(id !== null) {
+
+          dispatch(postCommentAction({ comment, id }))
+            .then(() => {
+              const formElement = evt.target as HTMLFormElement;
+              formElement.reset();
+            });
+        }
+      }}
+    >
       <StarRating startRating={START_RATING_VALUE} onStarClick={handleStarClick} />
 
       <div className="add-review__text">
